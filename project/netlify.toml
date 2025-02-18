@@ -1,0 +1,24 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/news/trending"
+  to = "https://newsapi.org/v2/top-headlines"
+  status = 200
+  force = true
+  headers = {X-Api-Key = ":NEWS_API_KEY"}
+  query = {country = "us", pageSize = "10"}
+
+[build.environment]
+  NEWS_API_KEY = "VITE_NEWS_API_KEY"
+
+# Handle SPA routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[functions]
+  node_bundler = "esbuild"

@@ -1,0 +1,11 @@
+{
+  "name": "fake-news-detector-extension",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "generate-icons": "node icons/generate_icons.js"
+  },
+  "dependencies": {
+    "canvas": "^2.11.2"
+  }
+}
