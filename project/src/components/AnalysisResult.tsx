@@ -18,7 +18,7 @@ export function AnalysisResult({ result }: Props) {
     try {
       await navigator.clipboard.writeText(text);
       toast.success('Analysis copied to clipboard');
-    } catch (error) {
+    } catch {
       toast.error('Failed to copy analysis');
     }
   };

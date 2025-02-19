@@ -27,7 +27,7 @@ export default defineConfig({
         headers: {
           'X-Api-Key': process.env.VITE_NEWS_API_KEY || '',
         },
-        configure: (proxy, options) => {
+        configure: (proxy) => {
           proxy.on('proxyReq', (proxyReq) => {
             proxyReq.setHeader('X-Api-Key', process.env.VITE_NEWS_API_KEY || '');
           });

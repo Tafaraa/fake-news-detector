@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Newspaper, AlertTriangle, History, ArrowLeft } from 'lucide-react';
+import { Newspaper, History, ArrowLeft } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
 import { loadModels, analyzeText, extractTextFromUrl, getTrendingNews } from './lib/detector';
 import { saveArticle, getArticleHistory } from './lib/supabase';
@@ -77,7 +77,7 @@ function App() {
 
       // Update history
       setHistory(prev => [article, ...prev]);
-    } catch (error) {
+    } catch {
       toast.error('Failed to analyze text');
     } finally {
       setLoading(false);

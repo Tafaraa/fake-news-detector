@@ -5,35 +5,34 @@ const NEWS_API_BASE = 'https://newsapi.org/v2';
 
 export async function fetchTrendingNews(): Promise<TrendingArticle[]> {
   try {
-    // In development, use the proxy
     const apiUrl = import.meta.env.DEV 
       ? '/api/news/trending'
       : `${NEWS_API_BASE}/top-headlines?country=us&pageSize=10`;
-    
-    const headers = import.meta.env.DEV 
-      ? {}
+
+    const headers: Record<string, string> = import.meta.env.DEV 
+      ? {} 
       : { 'X-Api-Key': NEWS_API_KEY };
 
     const response = await fetch(apiUrl, { headers });
-    
+
     if (!response.ok) {
       console.error('News API Error:', response.status, response.statusText);
-      return getMockTrendingNews(); // Fallback to mock data on error
+      return getMockTrendingNews();
     }
 
     const data = await response.json();
-    
+
     if (!data.articles || !Array.isArray(data.articles)) {
       throw new Error('Invalid response format');
     }
 
-    return data.articles.map((article: any) => ({
-      id: article.url,
-      title: article.title || 'Untitled',
-      url: article.url,
-      source: article.source?.name || 'Unknown Source',
-      credibility_score: calculateCredibilityScore(article.source?.name),
-      published_at: article.publishedAt || new Date().toISOString(),
+    return data.articles.map((article: { [key: string]: unknown }) => ({
+      id: article.url as string,
+      title: (article.title as string) || 'Untitled',
+      url: article.url as string,
+      source: (article.source?.name as string) || 'Unknown Source',
+      credibility_score: calculateCredibilityScore(article.source?.name as string),
+      published_at: (article.publishedAt as string) || new Date().toISOString(),
       analysis_count: Math.floor(Math.random() * 1000)
     }));
   } catch (error) {
