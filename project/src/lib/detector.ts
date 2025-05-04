@@ -57,7 +57,8 @@ export async function analyzeText(text: string) {
     const embeddings = await encoder.embed([cleanText]);
     
     // Make prediction
-    const prediction = await model.predict(embeddings as any) as tf.Tensor;
+    // Using unknown as an intermediate step to satisfy TypeScript
+    const prediction = await model.predict(embeddings as unknown as tf.Tensor) as tf.Tensor;
     const probability = (await prediction.data())[0];
     
     // Clean up tensors

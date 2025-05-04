@@ -1,4 +1,4 @@
-import React from 'react';
+// Component imports
 import { TrendingUp, ExternalLink, Shield, AlertTriangle, Newspaper, Globe } from 'lucide-react';
 import type { TrendingArticle } from '../types';
 

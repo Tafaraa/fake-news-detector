@@ -1,4 +1,4 @@
-import React from 'react';
+// Component imports
 import { AlertTriangle, CheckCircle, ExternalLink, Calendar, History, Newspaper } from 'lucide-react';
 import type { Article } from '../types';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+// Component imports
 import { AlertTriangle, CheckCircle, Share2, Info } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { AnalysisResult } from '../types';

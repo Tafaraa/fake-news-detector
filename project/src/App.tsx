@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Newspaper, History, ArrowLeft, Home, BarChart2, Search, Share2, Info, AlertTriangle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Newspaper, History, ArrowLeft, Home, Search, Info, AlertTriangle } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
 import { loadModels, analyzeText, extractTextFromUrl } from './lib/detector';
 import { saveArticle, getArticleHistory, getTrendingNews } from './lib/storage';
@@ -134,13 +134,7 @@ function App() {
     <div className="min-h-screen flex flex-col relative">
       {/* Background image */}
       <div 
-        className="absolute inset-0 z-0 pointer-events-none opacity-60" 
-        style={{ 
-          backgroundImage: 'url(/images/news-background.svg)', 
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }} 
+        className="absolute inset-0 z-0 pointer-events-none opacity-60 news-background" 
         aria-hidden="true"
       />
       <Toaster position="top-right" />
