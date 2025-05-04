@@ -1,6 +1,5 @@
 import * as tf from '@tensorflow/tfjs';
 import * as use from '@tensorflow-models/universal-sentence-encoder';
-import { fetchTrendingNews } from './api';
 
 let model: tf.LayersModel | null = null;
 let encoder: use.UniversalSentenceEncoder | null = null;
@@ -58,7 +57,7 @@ export async function analyzeText(text: string) {
     const embeddings = await encoder.embed([cleanText]);
     
     // Make prediction
-    const prediction = await model.predict(embeddings) as tf.Tensor;
+    const prediction = await model.predict(embeddings as any) as tf.Tensor;
     const probability = (await prediction.data())[0];
     
     // Clean up tensors
@@ -68,8 +67,11 @@ export async function analyzeText(text: string) {
     // Extract keywords for explanation
     const keywords = extractKeywords(cleanText);
 
+    // Ensure we return the correct type ('fake' | 'real')
+    const predictionResult = probability > 0.5 ? 'fake' : 'real' as const;
+
     return {
-      prediction: probability > 0.5 ? 'fake' : 'real',
+      prediction: predictionResult,
       confidence: Math.abs(probability - 0.5) * 200, // Convert to percentage and adjust range
       credibility_score: 1 - probability,
       keywords
@@ -130,4 +132,4 @@ function extractKeywords(text: string): string[] {
     .map(([word]) => word);
 }
 
-export { fetchTrendingNews as getTrendingNews };
+// Export only the necessary functions

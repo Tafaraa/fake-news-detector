@@ -12,7 +12,7 @@ export function HistoryList({ articles, loading = false }: Props) {
     return (
       <div className="space-y-4">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-white rounded-lg shadow p-4 animate-pulse">
+          <div key={i} className="bg-white/95 backdrop-blur-sm rounded-lg shadow p-4 animate-pulse z-10">
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-6 h-6 bg-gray-200 rounded-full" />
@@ -38,7 +38,7 @@ export function HistoryList({ articles, loading = false }: Props) {
 
   if (articles.length === 0) {
     return (
-      <div className="text-center py-12">
+      <div className="text-center py-12 bg-white/95 backdrop-blur-sm rounded-lg shadow z-10">
         <div className="text-gray-400 mb-3">
           <div className="relative">
             <Newspaper className="w-16 h-16 mx-auto text-indigo-100" />
@@ -60,7 +60,7 @@ export function HistoryList({ articles, loading = false }: Props) {
       {articles.map((article) => (
         <div
           key={article.id}
-          className="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow"
+          className="bg-white/95 backdrop-blur-sm rounded-lg shadow p-4 hover:shadow-md transition-shadow z-10"
         >
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-center gap-3">
@@ -116,7 +116,7 @@ export function HistoryList({ articles, loading = false }: Props) {
             {article.keywords.map((keyword, index) => (
               <span
                 key={index}
-                className="px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-600"
+                className="px-2 py-1 bg-indigo-50 border border-indigo-100 rounded-full text-xs text-indigo-700 shadow-sm"
               >
                 {keyword}
               </span>
