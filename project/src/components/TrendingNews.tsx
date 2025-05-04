@@ -1,13 +1,19 @@
 // Component imports
-import { TrendingUp, ExternalLink, Shield, AlertTriangle, Newspaper, Globe } from 'lucide-react';
+import { TrendingUp, ExternalLink, Shield, AlertTriangle, Newspaper, Globe, MapPin } from 'lucide-react';
+import { useState } from 'react';
 import type { TrendingArticle } from '../types';
 
 interface Props {
-  articles: TrendingArticle[];
+  globalArticles: TrendingArticle[];
+  africanArticles: TrendingArticle[];
   loading?: boolean;
 }
 
-export function TrendingNews({ articles, loading = false }: Props) {
+export function TrendingNews({ globalArticles, africanArticles, loading = false }: Props) {
+  const [activeTab, setActiveTab] = useState<'global' | 'african'>('global');
+  
+  // Get the articles based on the active tab
+  const articles = activeTab === 'global' ? globalArticles : africanArticles;
   if (loading) {
     return (
       <div className="space-y-4">
@@ -62,19 +68,43 @@ export function TrendingNews({ articles, loading = false }: Props) {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <TrendingUp className="w-5 h-5 text-indigo-600" />
-          <h2 className="text-lg font-semibold text-gray-900">Trending Articles</h2>
-        </div>
-        <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-gray-500">
-          <div className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-full">
-            <Shield className="w-4 h-4 text-green-500" />
-            <span>High Credibility</span>
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-indigo-600" />
+            <h2 className="text-lg font-semibold text-gray-900">Trending Articles</h2>
           </div>
-          <div className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-full">
-            <AlertTriangle className="w-4 h-4 text-yellow-500" />
-            <span>Low Credibility</span>
+          <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-gray-500">
+            <div className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-full">
+              <Shield className="w-4 h-4 text-green-500" />
+              <span>High Credibility</span>
+            </div>
+            <div className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-full">
+              <AlertTriangle className="w-4 h-4 text-yellow-500" />
+              <span>Low Credibility</span>
+            </div>
+          </div>
+        </div>
+        
+        {/* Region tabs */}
+        <div className="flex border-b border-gray-200">
+          <button
+            onClick={() => setActiveTab('global')}
+            className={`flex items-center gap-1.5 py-2 px-4 font-medium text-sm border-b-2 ${activeTab === 'global' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
+          >
+            <Globe className="w-4 h-4" />
+            Global
+          </button>
+          <button
+            onClick={() => setActiveTab('african')}
+            className={`flex items-center gap-1.5 py-2 px-4 font-medium text-sm border-b-2 ${activeTab === 'african' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
+          >
+            <MapPin className="w-4 h-4" />
+            Africa
+          </button>
+          
+          <div className="ml-auto text-xs text-gray-500 self-center pr-2">
+            <span className="italic">Updated {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
           </div>
         </div>
       </div>

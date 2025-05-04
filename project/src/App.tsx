@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { Newspaper, History, ArrowLeft, Home, Search, Info, AlertTriangle } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
 import { loadModels, analyzeText, extractTextFromUrl } from './lib/detector';
-import { saveArticle, getArticleHistory, getTrendingNews } from './lib/storage';
+import { saveArticle, getArticleHistory } from './lib/storage';
+import { getAllTrendingNews } from './lib/newsApi';
 import { AnalysisResult } from './components/AnalysisResult';
 import { HistoryList } from './components/HistoryList';
 import { LoadingAnimation } from './components/LoadingAnimation';
@@ -16,7 +17,8 @@ function App() {
   const [input, setInput] = useState('');
   const [result, setResult] = useState<AnalysisResultType | null>(null);
   const [history, setHistory] = useState<Article[]>([]);
-  const [trending, setTrending] = useState<TrendingArticle[]>([]);
+  const [globalTrending, setGlobalTrending] = useState<TrendingArticle[]>([]);
+  const [africanTrending, setAfricanTrending] = useState<TrendingArticle[]>([]);
   const [showHistory, setShowHistory] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [activeTab, setActiveTab] = useState('home');
@@ -52,10 +54,11 @@ function App() {
         setHistoryLoading(false);
       });
 
-    // Load trending news
-    getTrendingNews()
-      .then(articles => {
-        setTrending(articles);
+    // Load trending news from both global and African sources
+    getAllTrendingNews()
+      .then(({ global, african }) => {
+        setGlobalTrending(global);
+        setAfricanTrending(african);
         setTrendingLoading(false);
       })
       .catch(() => {
@@ -251,7 +254,11 @@ function App() {
               </div>
             </div>
 
-            <TrendingNews articles={trending} loading={trendingLoading} />
+            <TrendingNews 
+              globalArticles={globalTrending} 
+              africanArticles={africanTrending} 
+              loading={trendingLoading} 
+            />
           </div>
         )}
       </main>

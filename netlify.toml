@@ -1,0 +1,15 @@
+[build]
+  base = "project/"
+  publish = "dist/"
+  command = "npm run build"
+
+# Redirects for SPA routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Environment variables will need to be set in the Netlify dashboard
+# DO NOT put your API key here - this file just documents what's needed
+[template.environment]
+  VITE_NEWS_API_KEY = "Your News API key (required)"
