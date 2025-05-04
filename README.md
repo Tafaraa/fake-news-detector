@@ -1,6 +1,7 @@
 # Fake News Detector
 
-![Fake News Detector](project/public/images/news-background.svg)
+[Visit Website](https://fakenewsdetectorx.netlify.app/)
+
 
 A modern web application that uses machine learning to detect fake news articles. Built with React, TypeScript, TensorFlow.js, and Tailwind CSS.
 
@@ -12,10 +13,6 @@ A modern web application that uses machine learning to detect fake news articles
 - **Analysis History**: Keep track of previously analyzed articles
 - **Responsive Design**: Works on desktop and mobile devices
 - **Offline Capability**: Runs entirely in the browser with no backend dependencies
-
-## 📸 Screenshots
-
-![Screenshot of the Fake News Detector](screenshot.png)
 
 ## 🔧 Technologies Used
 
