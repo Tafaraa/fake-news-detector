@@ -1,8 +1,23 @@
 import type { TrendingArticle } from '../types';
 
+// Interface for NewsAPI article structure
+interface NewsApiArticle {
+  source: {
+    id: string | null;
+    name: string;
+  };
+  author?: string;
+  title: string;
+  description?: string;
+  url: string;
+  urlToImage?: string;
+  publishedAt?: string;
+  content?: string;
+}
+
 // News API key - in production, this should be in an environment variable
 // For local development, we'll use a placeholder
-const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY || 'your-api-key-here';
+const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY || 'b90a4270-b630-4709-a1a7-d0e177504508';
 
 // Base URL for News API
 const NEWS_API_BASE_URL = 'https://newsapi.org/v2';
@@ -48,7 +63,7 @@ function calculateCredibilityScore(source: string, title: string, description: s
 }
 
 // Function to transform NewsAPI article to our TrendingArticle format
-function transformArticle(article: any, index: number): TrendingArticle {
+function transformArticle(article: NewsApiArticle, index: number): TrendingArticle {
   const credibilityScore = calculateCredibilityScore(
     article.source.name || '',
     article.title || '',

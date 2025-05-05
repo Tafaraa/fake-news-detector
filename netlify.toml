@@ -9,6 +9,14 @@
   to = "/index.html"
   status = 200
 
+# CORS headers for all routes
+[[headers]]
+  for = "/*"
+    [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept"
+
 # Environment variables will need to be set in the Netlify dashboard
 # DO NOT put your API key here - this file just documents what's needed
 [template.environment]
